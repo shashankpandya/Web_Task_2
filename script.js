@@ -64,8 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Function to toggle the cart display
   window.toggleCart = function () {
-    cartDisplay.style.display =
-      cartDisplay.style.display === "none" ? "block" : "none";
+    const cartDisplay = document.getElementById("cart-display");
+    const isVisible = cartDisplay.style.display === "block"; // Check if the cart is currently visible
+    cartDisplay.style.display = isVisible ? "none" : "block"; // Toggle visibility
   };
 
   // Function to update the cart count and display
@@ -220,11 +221,12 @@ themeToggle.onclick = function () {
   const isDarkMode = document.body.classList.toggle("dark-theme");
   updateThemeIcon(isDarkMode);
   localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+  themeToggle.setAttribute("aria-pressed", isDarkMode);
 };
 
 function updateThemeIcon(isDarkMode) {
-  icon.src = isDarkMode ? "/Images/sun.png" : "/Images/moon.png";
-  icon.alt = isDarkMode ? "Light mode" : "Dark mode";
+  icon.src = isDarkMode ? "Images/sun.png" : "Images/moon.png";
+  icon.alt = isDarkMode ? "Switch to light mode" : "Switch to dark mode";
 }
 
 // Mobile menu toggle
@@ -354,7 +356,7 @@ function toggleTheme() {
 // Update the updateThemeIcon function
 function updateThemeIcon(isDarkMode) {
   const icon = document.getElementById("icon");
-  icon.src = isDarkMode ? "/Images/sun.png" : "/Images/moon.png";
+  icon.src = isDarkMode ? "Images/sun.png" : "Images/moon.png";
   icon.alt = isDarkMode ? "Light mode" : "Dark mode";
 }
 
@@ -395,3 +397,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+// Add event listener to the cart icon for a single click
+document.querySelector(".cart-icon").onclick = function () {
+  toggleCart(); // Call the toggleCart function on click
+};
